@@ -576,29 +576,176 @@ ul {
     line-height: 1.6;
 }
 
-/* Projects Grid */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-}
-
-.project-card {
-    background: #1e1e1e;
-    border-radius: 16px;
-    overflow: hidden;
+/* Code Block (Hybrid UI) */
+.code-window {
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 12px;
     border: 1px solid var(--glass-border);
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
     transition: transform 0.3s ease;
 }
 
+.code-window:hover {
+    transform: perspective(1000px) rotateY(0) rotateX(0);
+}
+
+.window-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red {
+    background: #ff5f56;
+}
+
+.dot.yellow {
+    background: #ffbd2e;
+}
+
+.dot.green {
+    background: #27c93f;
+}
+
+.window-title {
+    margin-left: 10px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.code-content {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.line {
+    display: block;
+}
+
+.indent {
+    padding-left: 20px;
+}
+
+.double-indent {
+    padding-left: 40px;
+}
+
+.keyword {
+    color: #c678dd;
+}
+
+/* Purple */
+.variable {
+    color: #e06c75;
+}
+
+/* Red */
+.string {
+    color: #98c379;
+}
+
+/* Green */
+.property {
+    color: #61afef;
+}
+
+/* Blue */
+.function {
+    color: #e5c07b;
+}
+
+/* Yellow */
+.boolean {
+    color: #d19a66;
+}
+
+/* Orange */
+
+/* Projects Carousel */
+.carousel-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    cursor: grab;
+    margin-bottom: 60px;
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+.carousel-container:active {
+    cursor: grabbing;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    /* Animation removed for JS control */
+}
+
+/* Projects Grid (Hybrid UI) */
+.subsection-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s ease;
+    position: relative;
+    /* width: 300px;  Removed fixed width for grid compatibility */
+    flex-shrink: 0;
+}
+
+/* Specific override for carousel cards to keep them fixed width */
+.carousel-track .project-card {
+    width: 300px;
+}
+
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
 }
 
 .project-image {
-    height: 200px;
+    height: 180px;
     overflow: hidden;
+    position: relative;
 }
 
 .placeholder-img {
@@ -820,4 +967,85 @@ ul {
 .fade-in {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Canvas Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Hero Image */
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: floatHero 6s ease-in-out infinite;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 2;
+}
+
+.glow-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+    z-index: 1;
+    filter: blur(40px);
+    opacity: 0.6;
+}
+
+@keyframes floatHero {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Project Images */
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.1);
+}
+
+/* Typography Refinements */
+.hero-title {
+    font-size: 5rem;
+    letter-spacing: -2px;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
 }
